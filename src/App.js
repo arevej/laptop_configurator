@@ -100,30 +100,34 @@ const storages = {
   3: 600,
 }
 
+const finalCutPros = {
+  1: 0,
+  2: 299.99,
+}
+
+const logicPros = {
+  1: 0,
+  2: 199.99,
+}
+
 
 class App extends Component {
   state = {
     processor: 1,
     memory: 1,
     storage: 1,
+    finalCutPro: 1,
+    logicPro: 1,
   };
 
-  handleSelectProcessorOption = (option) => () => {
-    this.setState({ processor: option });
-  }
-
-  handleSelectMemoryOption = (option) => () => {
-    this.setState({ memory: option });
-  }
-
-  handleSelectStorageOption = (option) => () => {
-    this.setState({ storage: option });
+  handleSelectOption = (option, optionValue) => () => {
+    this.setState({ [option]: optionValue });
   }
 
   render() {
-    const { processor, memory, storage } = this.state;
+    const { processor, memory, storage, finalCutPro, logicPro } = this.state;
 
-    const total = basePrice+processors[processor]+memories[memory]+storages[storage];
+    const total = basePrice+processors[processor]+memories[memory]+storages[storage]+finalCutPros[finalCutPro]+logicPros[logicPro];
 
     return (
       <div>
@@ -159,13 +163,13 @@ class App extends Component {
                   info="2.3GHz dual-core 7th-generation Intel Core i5 processor, Turbo Boost up to 3.6GHz"
                   price={processors[1]-processors[processor]}
                   isSelected={processor === 1}
-                  onClick={this.handleSelectProcessorOption(1)}
+                  onClick={this.handleSelectOption('processor', 1)}
                 />
                 <Option
                   info="2.5GHz dual-core 7th-generation Intel Core i7 processor, Turbo Boost up to 4.0GHz"
                   price={processors[2]-processors[processor]}
                   isSelected={processor === 2}
-                  onClick={this.handleSelectProcessorOption(2)}
+                  onClick={this.handleSelectOption('processor', 2)}
                 />
               </div>
               <div className="spec">
@@ -175,13 +179,13 @@ class App extends Component {
                   info="8GB 2133MHz LPDDR3 memory"
                   price={memories[1]-memories[memory]}
                   isSelected={memory === 1}
-                  onClick={this.handleSelectMemoryOption(1)}
+                  onClick={this.handleSelectOption('memory', 1)}
                 />
                 <Option
                   info="16GB 2133MHz LPDDR3 memory"
                   price={memories[2]-memories[memory]}
                   isSelected={memory === 2}
-                  onClick={this.handleSelectMemoryOption(2)}
+                  onClick={this.handleSelectOption('memory', 2)}
                 />
               </div>
               <div className="spec">
@@ -191,26 +195,102 @@ class App extends Component {
                   info="256GB SSD storage"
                   price={storages[1]-storages[storage]}
                   isSelected={storage === 1}
-                  onClick={this.handleSelectStorageOption(1)}
+                  onClick={this.handleSelectOption('storage', 1)}
                 />
                 <Option
                   info="512GB SSD storage"
                   price={storages[2]-storages[storage]}
                   isSelected={storage === 2}
-                  onClick={this.handleSelectStorageOption(2)}
+                  onClick={this.handleSelectOption('storage', 2)}
                 />
                 <Option
                   info="1TB SSD storage"
                   price={storages[3]-storages[storage]}
                   isSelected={storage === 3}
-                  onClick={this.handleSelectStorageOption(3)}
+                  onClick={this.handleSelectOption('storage', 3)}
                 />
               </div>
+              <h2>Pre-Installed Software</h2>
+              <div className="spec">
+                <h3>Final Cut Pro X</h3>
+                <a href="#" className="blue-link">Learn more</a>
+                <div className='row-options'>
+                  <Option
+                    info="None"
+                    price={finalCutPros[1]-finalCutPros[finalCutPro]}
+                    isSelected={finalCutPro === 1}
+                    onClick={this.handleSelectOption('finalCutPro', 1)}
+                  />
+                  <Option
+                    info="Final Cut Pro X"
+                    price={finalCutPros[2]-finalCutPros[finalCutPro]}
+                    isSelected={finalCutPro === 2}
+                    onClick={this.handleSelectOption('finalCutPro', 2)}
+                  />
+                </div>
+              </div>
+              <div className="spec">
+                <h3>Logic Pro Pro X</h3>
+                <a href="#" className="blue-link">Learn more</a>
+                <div className='row-options'>
+                  <Option
+                    info="None"
+                    price={logicPros[1]-logicPros[logicPro]}
+                    isSelected={logicPro === 1}
+                    onClick={this.handleSelectOption('logicPro', 1)}
+                  />
+                  <Option
+                    info="Logic Pro X"
+                    price={logicPros[2]-logicPros[logicPro]}
+                    isSelected={logicPro === 2}
+                    onClick={this.handleSelectOption('logicPro', 2)}
+                  />
+                </div>
+              </div>
             </div>
-
             <div className="bottom-total">
               <div className="container">
-                <b>Total: ${total.toFixed(2)}</b>
+                <div className='bottom-bar'>
+                  <div className='bottom-bar-columns'>
+                    <span>💬</span>
+                    <div className='bottom-bar-column'>
+                      <span>Get help buying:</span>
+                      <a href='#'className='blue-link'>Chat now</a>
+                      <span>Call 1-800-MY-APPLE</span>
+                    </div>
+                  </div>
+                  <div className='bottom-bar-columns'>
+                    <span>💼</span>
+                    <div className='bottom-bar-column'>
+                      <span>Pickup:</span>
+                      <a href='#'className='blue-link'>Check availability</a>
+                    </div>
+                  </div>
+                  <div className='bottom-bar-columns'>
+                    <span>📦</span>
+                    <div className='bottom-bar-column'>
+                      <span>Ships:</span>
+                      <span>1-3 buisness days</span>
+                      <span>Free Shipping</span>
+                      <a href='#'className='blue-link'>Get delivery dates</a>
+                    </div>
+                  </div>
+                  <div className='bottom-bar-columns'>
+                    <div className='bottom-bar-column'>
+                      <b className="total">${total.toFixed(2)}</b>
+                      <a href='#'className='blue-link'>Up to 24 months of special financing ❯</a>
+                    </div>
+                    <div>
+                      <a href="#" className="bottom-bar-button">Add to Bag</a>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ fontSize: '12px', marginLeft: '27px'}}>
+                  Made by <a className='blue-link' href='https://github.com/arevej'>Tim Kholod</a>.
+                  This project on <a className='blue-link' href='https://github.com/arevej/mac'>GitHub</a>.
+
+
+                </div>
               </div>
             </div>
           </div>
