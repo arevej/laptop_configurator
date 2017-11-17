@@ -85,29 +85,63 @@ class FixOnScroll extends Component {
 const basePrice = 1499;
 
 const processors = {
-  1: 0,
-  2: 300,
+  1: {
+    name: '2.3GHz dual-core 7th-generation Intel Core i5 processor, Turbo Boost up to 3.6GHz',
+    price: 0,
+  },
+  2: {
+    name: '2.5GHz dual-core 7th-generation Intel Core i7 processor, Turbo Boost up to 4.0GHz',
+    price: 300,
+  }
 }
 
 const memories = {
-  1: 0,
-  2: 200,
+  1: {
+    name: '8GB 2133MHz LPDDR3 memory',
+    price: 0,
+  },
+  2: {
+    name: '16GB 2133MHz LPDDR3 memory',
+    price: 200,
+  }
 }
 
 const storages = {
-  1: 0,
-  2: 200,
-  3: 600,
+  1: {
+    name: '256GB SSD storage',
+    price: 0,
+  },
+  2: {
+    name: '512GB SSD storage',
+    price: 200,
+  },
+  3: {
+    name: '1TB SSD storage',
+    price: 600,
+  }
 }
 
 const finalCutPros = {
-  1: 0,
-  2: 299.99,
+  1: {
+    name: 'None',
+    price: 0,
+  },
+  2: {
+    name: 'Final Cut Pro X',
+    price: 299.99,
+  }
 }
 
 const logicPros = {
-  1: 0,
-  2: 199.99,
+  1: {
+    name: 'None',
+    price: 0,
+  },
+  2: {
+    name : 'Logic Pro X',
+    price: 199.99,
+  }
+
 }
 
 
@@ -127,7 +161,7 @@ class App extends Component {
   render() {
     const { processor, memory, storage, finalCutPro, logicPro } = this.state;
 
-    const total = basePrice+processors[processor]+memories[memory]+storages[storage]+finalCutPros[finalCutPro]+logicPros[logicPro];
+    const total = basePrice+processors[processor].price+memories[memory].price+storages[storage].price+finalCutPros[finalCutPro].price+logicPros[logicPro].price;
 
     return (
       <div>
@@ -148,26 +182,29 @@ class App extends Component {
             <div className="info">
               <div className='specs'>
                 <h1>Customize your 13-inch MacBook Pro - Space Gray</h1>
-                <p>2.3GHz dual-core 7th-generation Intel Core i5 processor, Turbo Boost up to 3.6GHz</p>
-                <p><b>16GB 2133MHz LPDDR3 memory</b></p>
-                <p><b>1TB SSD storage</b></p>
+                <p>{processor === 1 ? processors[1].name : <b>{processors[processor].name}</b>}</p>
+                <p>{memory === 1 ? memories[1].name : <b>{memories[memory].name}</b>}</p>
+                <p>{storage === 1 ? storages[1].name : <b>{storages[storage].name}</b>}</p>
                 <p>Intel Iris Plus Graphics 640</p>
                 <p>Two Thunderbolt 3 ports</p>
                 <p>Backlit Keyboard - US English</p>
+                <p>{finalCutPro === 2 ? <b>{finalCutPros[2].name}</b> : null }</p>
+                <p>{logicPro === 2 ? <b>{logicPros[2].name}</b> : null }</p>
+
               </div>
               <Line />
               <div className="spec">
                 <h3>Processor</h3>
                 <a href="#" className="blue-link">Which processor is right for you?</a>
                 <Option
-                  info="2.3GHz dual-core 7th-generation Intel Core i5 processor, Turbo Boost up to 3.6GHz"
-                  price={processors[1]-processors[processor]}
+                  info={processors[1].name}
+                  price={processors[1].price-processors[processor].price}
                   isSelected={processor === 1}
                   onClick={this.handleSelectOption('processor', 1)}
                 />
                 <Option
-                  info="2.5GHz dual-core 7th-generation Intel Core i7 processor, Turbo Boost up to 4.0GHz"
-                  price={processors[2]-processors[processor]}
+                  info={processors[2].name}
+                  price={processors[2].price-processors[processor].price}
                   isSelected={processor === 2}
                   onClick={this.handleSelectOption('processor', 2)}
                 />
@@ -176,14 +213,14 @@ class App extends Component {
                 <h3>Memory</h3>
                 <a href="#" className="blue-link">How much memory is right for you?</a>
                 <Option
-                  info="8GB 2133MHz LPDDR3 memory"
-                  price={memories[1]-memories[memory]}
+                  info={memories[1].name}
+                  price={memories[1].price-memories[memory].price}
                   isSelected={memory === 1}
                   onClick={this.handleSelectOption('memory', 1)}
                 />
                 <Option
-                  info="16GB 2133MHz LPDDR3 memory"
-                  price={memories[2]-memories[memory]}
+                  info={memories[2].name}
+                  price={memories[2].price-memories[memory].price}
                   isSelected={memory === 2}
                   onClick={this.handleSelectOption('memory', 2)}
                 />
@@ -192,20 +229,20 @@ class App extends Component {
                 <h3>Storage</h3>
                 <a href="#" className="blue-link">How much storage is right for you?</a>
                 <Option
-                  info="256GB SSD storage"
-                  price={storages[1]-storages[storage]}
+                  info={storages[1].name}
+                  price={storages[1].price-storages[storage].price}
                   isSelected={storage === 1}
                   onClick={this.handleSelectOption('storage', 1)}
                 />
                 <Option
-                  info="512GB SSD storage"
-                  price={storages[2]-storages[storage]}
+                  info={storages[2].name}
+                  price={storages[2].price-storages[storage].price}
                   isSelected={storage === 2}
                   onClick={this.handleSelectOption('storage', 2)}
                 />
                 <Option
-                  info="1TB SSD storage"
-                  price={storages[3]-storages[storage]}
+                  info={storages[3].name}
+                  price={storages[3].price-storages[storage].price}
                   isSelected={storage === 3}
                   onClick={this.handleSelectOption('storage', 3)}
                 />
@@ -216,14 +253,14 @@ class App extends Component {
                 <a href="#" className="blue-link">Learn more</a>
                 <div className='row-options'>
                   <Option
-                    info="None"
-                    price={finalCutPros[1]-finalCutPros[finalCutPro]}
+                    info={finalCutPros[1].name}
+                    price={finalCutPros[1].price-finalCutPros[finalCutPro].price}
                     isSelected={finalCutPro === 1}
                     onClick={this.handleSelectOption('finalCutPro', 1)}
                   />
                   <Option
-                    info="Final Cut Pro X"
-                    price={finalCutPros[2]-finalCutPros[finalCutPro]}
+                    info={finalCutPros[2].name}
+                    price={finalCutPros[2].price-finalCutPros[finalCutPro].price}
                     isSelected={finalCutPro === 2}
                     onClick={this.handleSelectOption('finalCutPro', 2)}
                   />
@@ -234,14 +271,14 @@ class App extends Component {
                 <a href="#" className="blue-link">Learn more</a>
                 <div className='row-options'>
                   <Option
-                    info="None"
-                    price={logicPros[1]-logicPros[logicPro]}
+                    info={logicPros[1].name}
+                    price={logicPros[1].price-logicPros[logicPro].price}
                     isSelected={logicPro === 1}
                     onClick={this.handleSelectOption('logicPro', 1)}
                   />
                   <Option
-                    info="Logic Pro X"
-                    price={logicPros[2]-logicPros[logicPro]}
+                    info={logicPros[2].name}
+                    price={logicPros[2].price-logicPros[logicPro].price}
                     isSelected={logicPro === 2}
                     onClick={this.handleSelectOption('logicPro', 2)}
                   />
